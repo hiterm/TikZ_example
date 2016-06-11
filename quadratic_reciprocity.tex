@@ -1,0 +1,49 @@
+% for pdflatex
+% data.py を実行してからこちらをタイプセット
+\documentclass[border=1pt]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{plotmarks}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \newcommand{\p}{11}
+  \newcommand{\q}{7}
+  \everymath{\displaystyle}
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (\p,0);
+  \coordinate (D) at (0,\q);
+  \coordinate (C) at ($(B) + (D)$); %足し算
+  \coordinate (X) at ($(A)!0.5!(B)$); %中点
+  \coordinate (Z) at ($(C)!0.5!(D)$);
+  \coordinate (Y) at ($(X)!0.5!(Z)$);
+  \coordinate (W) at ($(A)!0.5!(D)$);
+  \draw [->] (A) -- ($(A)!1.1!(B)$);
+  \draw [->] (A) -- ($(A)!1.1!(D)$);
+  \draw (A) node[below left] {A} -- (B) node[above right] {B} % node[below] {$p$}
+    -- (C) node[above] {C} -- (D) node[above right] {D} % node[left] {$q$}
+    -- cycle;
+  \draw (A) -- (C);
+  \draw [dashed] (X) node[above right] {X} % node[below] {$\frac{p}{2}$}
+    -- (Z) node[above] {Z};
+  \draw [dashed] (W) node[above right] {W} % node[left] {$\frac{q}{2}$}
+    -- (Y) node[above left] {Y};
+
+  \foreach \i in {1,...,\p}{
+    \draw (\i, 0) node[below] {$\i$} -- (\i, 0.2);
+  }
+  \foreach \j in {1,...,\q}{
+    \draw (0, \j) node[left] {$\j$} -- (0.2, \j);
+  }
+
+  \draw plot [mark=*, only marks] file {eisenstein-1.table};
+  \draw plot [mark=x, only marks, mark size=3pt] file {eisenstein-2.table};
+  \draw plot [mark=triangle, only marks, mark size=3pt] file {eisenstein-3.table};
+\end{tikzpicture}
+
+\end{document}
