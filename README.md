@@ -9,3 +9,6 @@
 python3 data.py
 pdflatex quadratic_reciprocity.tex
 ```
+
+## Result
+[quadratic_reciprocity.pdf](https://github.com/htlsne/TikZ_example/blob/master/quadratic_reciprocity.pdf)
